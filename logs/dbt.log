@@ -1,0 +1,100 @@
+[0m18:46:21.490377 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f4eb8378350>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f4eb837acd0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f4eb824f250>]}
+
+
+============================== 18:46:21.493954 | 0f52d04e-22a9-4bca-8a3c-aac75129d5f8 ==============================
+[0m18:46:21.493954 [info ] [MainThread]: Running with dbt=1.12.5
+[0m18:46:21.494687 [debug] [MainThread]: running dbt with arguments {'use_colors': 'True', 'hints_enabled': 'True', 'log_format': 'default', 'introspect': 'True', 'printer_width': '80', 'quiet': 'False', 'indirect_selection': 'eager', 'send_anonymous_usage_stats': 'True', 'log_cache_events': 'False', 'debug': 'False', 'partial_parse': 'True', 'empty': 'None', 'maximum_seed_size_mib': '1', 'target_path': 'None', 'warn_error': 'None', 'invocation_command': 'dbt init pablo_dwh_dbt', 'version_check': 'True', 'cache_selected_only': 'False', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'profiles_dir': '/home/hadoop/.dbt', 'static_parser': 'True', 'use_experimental_parser': 'False', 'log_path': 'logs', 'write_json': 'True', 'fail_fast': 'False', 'no_print': 'None'}
+[0m18:46:21.504637 [info ] [MainThread]: Creating dbt configuration folder at /home/hadoop/.dbt
+[0m18:46:21.506048 [debug] [MainThread]: Starter project path: /home/hadoop/venv/lib/python3.11/site-packages/dbt/include/starter_project
+[0m18:46:21.508009 [info ] [MainThread]: Setting up your profile.
+[0m18:46:37.062381 [info ] [MainThread]: No sample profile found for clickhouse.
+[0m18:46:37.063782 [info ] [MainThread]: Running dbt debug to validate the project...
+[0m18:46:37.064433 [info ] [MainThread]: dbt version: 1.12.5
+[0m18:46:37.064817 [info ] [MainThread]: python version: 3.11.9
+[0m18:46:37.065152 [info ] [MainThread]: python path: /home/hadoop/venv/bin/python3.11
+[0m18:46:37.067069 [info ] [MainThread]: os info: Linux-5.4.0-216-generic-x86_64-with-glibc2.31
+[0m18:46:37.067451 [info ] [MainThread]: Using profiles dir at /home/hadoop/.dbt
+[0m18:46:37.067775 [info ] [MainThread]: Using profiles.yml file at /home/hadoop/.dbt/profiles.yml
+[0m18:46:37.068079 [info ] [MainThread]: Using dbt_project.yml file at /home/hadoop/Pablo_dwh/pablo_dwh_dbt/dbt_project.yml
+[0m18:46:37.205503 [info ] [MainThread]: Configuration:
+[0m18:46:37.206113 [info ] [MainThread]:   profiles.yml file [[31mERROR not found[0m]
+[0m18:46:37.206490 [info ] [MainThread]:   dbt_project.yml file [[32mOK found and valid[0m]
+[0m18:46:37.206827 [info ] [MainThread]: Required dependencies:
+[0m18:46:37.207207 [debug] [MainThread]: Executing "git --help"
+[0m18:46:37.267664 [debug] [MainThread]: STDOUT: "b"usage: git [--version] [--help] [-C <path>] [-c <name>=<value>]\n           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]\n           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--bare]\n           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]\n           <command> [<args>]\n\nThese are common Git commands used in various situations:\n\nstart a working area (see also: git help tutorial)\n   clone             Clone a repository into a new directory\n   init              Create an empty Git repository or reinitialize an existing one\n\nwork on the current change (see also: git help everyday)\n   add               Add file contents to the index\n   mv                Move or rename a file, a directory, or a symlink\n   restore           Restore working tree files\n   rm                Remove files from the working tree and from the index\n   sparse-checkout   Initialize and modify the sparse-checkout\n\nexamine the history and state (see also: git help revisions)\n   bisect            Use binary search to find the commit that introduced a bug\n   diff              Show changes between commits, commit and working tree, etc\n   grep              Print lines matching a pattern\n   log               Show commit logs\n   show              Show various types of objects\n   status            Show the working tree status\n\ngrow, mark and tweak your common history\n   branch            List, create, or delete branches\n   commit            Record changes to the repository\n   merge             Join two or more development histories together\n   rebase            Reapply commits on top of another base tip\n   reset             Reset current HEAD to the specified state\n   switch            Switch branches\n   tag               Create, list, delete or verify a tag object signed with GPG\n\ncollaborate (see also: git help workflows)\n   fetch             Download objects and refs from another repository\n   pull              Fetch from and integrate with another repository or a local branch\n   push              Update remote refs along with associated objects\n\n'git help -a' and 'git help -g' list available subcommands and some\nconcept guides. See 'git help <command>' or 'git help <concept>'\nto read about a specific subcommand or concept.\nSee 'git help git' for an overview of the system.\n""
+[0m18:46:37.268370 [debug] [MainThread]: STDERR: "b''"
+[0m18:46:37.268842 [info ] [MainThread]:  - git [[32mOK found[0m]
+
+[0m18:46:37.269230 [info ] [MainThread]: Connection test skipped since no profile was found
+[0m18:46:37.269572 [info ] [MainThread]: [31m1 check failed:[0m
+[0m18:46:37.269888 [info ] [MainThread]: dbt looked for a profiles.yml file in /home/hadoop/.dbt/profiles.yml, but did
+not find one. For more information on configuring your profile, consult the
+documentation:
+
+https://docs.getdbt.com/docs/configure-your-profile
+
+
+[0m18:46:37.270301 [info ] [MainThread]: Your new dbt project "pablo_dwh_dbt" was created!
+Initialized new project in /home/hadoop/Pablo_dwh/pablo_dwh_dbt/pablo_dwh_dbt
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m18:46:37.270675 [info ] [MainThread]: [31mYour profile may need adjustments. You can find the logs of `dbt debug` above[0m
+[0m18:46:37.274155 [debug] [MainThread]: Resource report: {"command_name": "init", "command_success": true, "command_wall_clock_time": 15.883764, "process_in_blocks": "6096", "process_kernel_time": 0.168697, "process_mem_max_rss": "112356", "process_out_blocks": "72", "process_user_time": 1.996175}
+[0m18:46:37.274745 [debug] [MainThread]: Command `dbt init` succeeded at 18:46:37.274626 after 15.88 seconds
+[0m18:46:37.275162 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f4eb82b7010>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f4eb823f950>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f4eb8262510>]}
+[0m18:46:37.275616 [debug] [MainThread]: Flushing usage events
+[0m18:46:37.775529 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m18:47:12.713770 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f3ce4f0b210>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f3ce633a650>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f3ce4dcae90>]}
+
+
+============================== 18:47:12.717315 | 152e8dae-237d-4622-b686-c82af0161b97 ==============================
+[0m18:47:12.717315 [info ] [MainThread]: Running with dbt=1.12.5
+[0m18:47:12.718017 [debug] [MainThread]: running dbt with arguments {'log_cache_events': 'False', 'cache_selected_only': 'False', 'hints_enabled': 'True', 'quiet': 'False', 'indirect_selection': 'eager', 'target_path': 'None', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'profiles_dir': '/home/hadoop/.dbt', 'debug': 'False', 'static_parser': 'True', 'no_print': 'None', 'fail_fast': 'False', 'write_json': 'True', 'log_format': 'default', 'use_colors': 'True', 'empty': 'None', 'use_experimental_parser': 'False', 'introspect': 'True', 'partial_parse': 'True', 'printer_width': '80', 'maximum_seed_size_mib': '1', 'send_anonymous_usage_stats': 'True', 'version_check': 'True', 'log_path': 'logs', 'warn_error': 'None', 'invocation_command': 'dbt debug'}
+[0m18:47:12.728428 [info ] [MainThread]: dbt version: 1.12.5
+[0m18:47:12.728970 [info ] [MainThread]: python version: 3.11.9
+[0m18:47:12.729359 [info ] [MainThread]: python path: /home/hadoop/venv/bin/python3.11
+[0m18:47:12.729711 [info ] [MainThread]: os info: Linux-5.4.0-216-generic-x86_64-with-glibc2.31
+[0m18:47:12.808998 [info ] [MainThread]: Using profiles dir at /home/hadoop/.dbt
+[0m18:47:12.809605 [info ] [MainThread]: Using profiles.yml file at /home/hadoop/.dbt/profiles.yml
+[0m18:47:12.809980 [info ] [MainThread]: Using dbt_project.yml file at /home/hadoop/Pablo_dwh/dbt_project.yml
+[0m18:47:12.810355 [info ] [MainThread]: Configuration:
+[0m18:47:12.810687 [info ] [MainThread]:   profiles.yml file [[31mERROR invalid[0m]
+[0m18:47:12.811011 [info ] [MainThread]:   dbt_project.yml file [[31mERROR not found[0m]
+[0m18:47:12.811336 [info ] [MainThread]: Required dependencies:
+[0m18:47:12.811743 [debug] [MainThread]: Executing "git --help"
+[0m18:47:12.813828 [debug] [MainThread]: STDOUT: "b"usage: git [--version] [--help] [-C <path>] [-c <name>=<value>]\n           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]\n           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--bare]\n           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]\n           <command> [<args>]\n\nThese are common Git commands used in various situations:\n\nstart a working area (see also: git help tutorial)\n   clone             Clone a repository into a new directory\n   init              Create an empty Git repository or reinitialize an existing one\n\nwork on the current change (see also: git help everyday)\n   add               Add file contents to the index\n   mv                Move or rename a file, a directory, or a symlink\n   restore           Restore working tree files\n   rm                Remove files from the working tree and from the index\n   sparse-checkout   Initialize and modify the sparse-checkout\n\nexamine the history and state (see also: git help revisions)\n   bisect            Use binary search to find the commit that introduced a bug\n   diff              Show changes between commits, commit and working tree, etc\n   grep              Print lines matching a pattern\n   log               Show commit logs\n   show              Show various types of objects\n   status            Show the working tree status\n\ngrow, mark and tweak your common history\n   branch            List, create, or delete branches\n   commit            Record changes to the repository\n   merge             Join two or more development histories together\n   rebase            Reapply commits on top of another base tip\n   reset             Reset current HEAD to the specified state\n   switch            Switch branches\n   tag               Create, list, delete or verify a tag object signed with GPG\n\ncollaborate (see also: git help workflows)\n   fetch             Download objects and refs from another repository\n   pull              Fetch from and integrate with another repository or a local branch\n   push              Update remote refs along with associated objects\n\n'git help -a' and 'git help -g' list available subcommands and some\nconcept guides. See 'git help <command>' or 'git help <concept>'\nto read about a specific subcommand or concept.\nSee 'git help git' for an overview of the system.\n""
+[0m18:47:12.814351 [debug] [MainThread]: STDERR: "b''"
+[0m18:47:12.814679 [info ] [MainThread]:  - git [[32mOK found[0m]
+
+[0m18:47:12.815038 [info ] [MainThread]: Connection test skipped since no profile was found
+[0m18:47:12.815474 [info ] [MainThread]: [31m2 checks failed:[0m
+[0m18:47:12.815827 [info ] [MainThread]: Could not load dbt_project.yml
+Profile loading failed for the following reason:
+Runtime Error
+  Credentials in profile "pablo_dwh_dbt", target "dev" invalid: Runtime Error
+        schema: dds 
+        database: pablo_dwh 
+        cluster: None 
+    On Clickhouse, database must be omitted or have the same value as schema.
+
+
+[0m18:47:12.816165 [info ] [MainThread]: Project loading failed for the following reason:
+ project path </home/hadoop/Pablo_dwh/dbt_project.yml> not found
+
+[0m18:47:12.817196 [debug] [MainThread]: Resource report: {"command_name": "debug", "command_success": false, "command_wall_clock_time": 0.20411788, "process_in_blocks": "0", "process_kernel_time": 0.13593, "process_mem_max_rss": "111344", "process_out_blocks": "32", "process_user_time": 1.903025}
+[0m18:47:12.817792 [debug] [MainThread]: Command `dbt debug` failed at 18:47:12.817669 after 0.20 seconds
+[0m18:47:12.818254 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f3ce4dd0610>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f3ce4e60710>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f3ce4e61bd0>]}
+[0m18:47:12.818713 [debug] [MainThread]: Flushing usage events
+[0m18:47:13.302866 [debug] [MainThread]: An error was encountered while trying to flush usage events

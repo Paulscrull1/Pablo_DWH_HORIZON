@@ -1,0 +1,1 @@
+source /home/hadoop/venv/bin/activate

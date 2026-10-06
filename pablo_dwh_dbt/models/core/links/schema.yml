@@ -1,0 +1,69 @@
+version: 2
+
+models:
+  # LINK_SALE: позиция чека (транзакция + товар)
+  - name: link_sale
+    description: "Линк продаж: связывает транзакцию и товар (позиция чека)"
+    columns:
+      - name: link_sale_hk
+        description: "Хеш-ключ связи"
+        tests: [unique, not_null]
+      - name: transaction_hk
+        tests: [not_null]
+      - name: product_hk
+        tests: [not_null]
+
+  # LINK_TRANSACTION_STORE: привязка чека к магазину
+  - name: link_transaction_store
+    description: "Линк: транзакция -> магазин (привязка чека к магазину)"
+    columns:
+      - name: link_transaction_store_hk
+        tests: [unique, not_null]
+      - name: transaction_hk
+        tests: [not_null]
+      - name: store_hk
+        tests: [not_null]
+
+  # LINK_CARD_CLIENT: принадлежность карты клиенту
+  - name: link_card_client
+    description: "Линк: карта -> клиент (принадлежность карты)"
+    columns:
+      - name: link_card_client_hk
+        tests: [unique, not_null]
+      - name: card_hk
+        tests: [not_null]
+      - name: client_hk
+        tests: [not_null]
+
+  # LINK_LOYALTY_TXN_STORE: балльная операция к магазину
+  - name: link_loyalty_txn_store
+    description: "Линк: транзакция лояльности -> магазин (привязка операции к магазину)"
+    columns:
+      - name: link_loyalty_txn_store_hk
+        tests: [unique, not_null]
+      - name: loyalty_transaction_hk
+        tests: [not_null]
+      - name: store_hk
+        tests: [not_null]
+
+  # LINK_LOYALTY_TXN_SOURCE: балльная операция к чеку
+  - name: link_loyalty_txn_source
+    description: "Линк: транзакция лояльности -> исходный чек (связь с чеком)"
+    columns:
+      - name: link_loyalty_txn_source_hk
+        tests: [unique, not_null]
+      - name: loyalty_transaction_hk
+        tests: [not_null]
+      - name: transaction_hk
+        tests: [not_null]
+
+  # LINK_EMPLOYEE_STORE: трудоустройство сотрудника
+  - name: link_employee_store
+    description: "Линк: сотрудник -> магазин (трудоустройство)"
+    columns:
+      - name: link_employee_store_hk
+        tests: [unique, not_null]
+      - name: employee_hk
+        tests: [not_null]
+      - name: store_hk
+        tests: [not_null]

@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: staging
+    schema: staging
+    tables:
+      - name: stg_clients
+      - name: stg_cards
+      - name: stg_sales
+      - name: stg_stores
+      - name: stg_products
+      - name: stg_employees
+      - name: stg_loyalty_transactions

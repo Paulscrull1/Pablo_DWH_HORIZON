@@ -1,0 +1,12 @@
+version: 2
+
+models:
+  - name: sat_card
+    description: "Сателлит карт лояльности"
+    columns:
+      - name: card_hk
+        tests: [not_null]
+      - name: status
+        tests:
+          - accepted_values:
+              values: ['active', 'blocked', 'expired']

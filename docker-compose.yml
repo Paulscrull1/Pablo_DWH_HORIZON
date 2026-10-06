@@ -1,0 +1,143 @@
+services:
+  # 1. ClickHouse - основное хранилище данных (DWH)
+  clickhouse:
+    image: clickhouse/clickhouse-server:24.8
+    container_name: pablo_clickhouse
+    hostname: clickhouse
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    volumes:
+      - ./clickhouse_data:/var/lib/clickhouse
+    environment:
+      - CLICKHOUSE_DB=${CH_DB}
+      - CLICKHOUSE_USER=${CH_USER}
+      - CLICKHOUSE_PASSWORD=${CH_PASSWORD}
+      - CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT=1
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    networks:
+      - pablo_net
+    restart: unless-stopped
+
+  # 2. PostgreSQL - метаданные Airflow и база программы лояльности
+  postgres:
+    image: postgres:13
+    container_name: pablo_airflow_postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_DB: ${PG_DB_AIRFLOW}
+    volumes:
+      - postgres-db-volume:/var/lib/postgresql/data
+    networks:
+      - pablo_net
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${PG_USER}"]
+      interval: 5s
+      retries: 5
+
+  # 3. Инициализация базы данных Airflow
+  airflow-init:
+    image: apache/airflow:2.7.3
+    container_name: pablo_airflow_init
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${PG_USER}:${PG_PASSWORD}@postgres/${PG_DB_AIRFLOW}
+      AIRFLOW__WEBSERVER__SECRET_KEY: 'pablo_dwh_super_secret_key_123'
+      AIRFLOW__CORE__FERNET_KEY: ''
+      AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'false'
+      AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+      _AIRFLOW_DB_MIGRATE: 'true'
+      _AIRFLOW_WWW_USER_CREATE: 'true'
+      _AIRFLOW_WWW_USER_USERNAME: ${AIRFLOW_USER}
+      _AIRFLOW_WWW_USER_PASSWORD: ${AIRFLOW_PASSWORD}
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./data:/opt/airflow/data
+    command: >
+      bash -c "airflow db upgrade && airflow users create --username ${AIRFLOW_USER} --password ${AIRFLOW_PASSWORD} --firstname HD --lastname User --role Admin --email ${AIRFLOW_USER}@example.com || true"
+    networks:
+      - pablo_net
+
+  # 4. Веб-интерфейс Airflow
+  airflow-webserver:
+    image: apache/airflow:2.7.3
+    container_name: pablo_airflow_webserver
+    depends_on:
+      - airflow-init
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${PG_USER}:${PG_PASSWORD}@postgres/${PG_DB_AIRFLOW}
+      AIRFLOW__WEBSERVER__SECRET_KEY: 'pablo_dwh_super_secret_key_123'
+      AIRFLOW__CORE__FERNET_KEY: ''
+      AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'false'
+      AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./data:/opt/airflow/data
+      - ./gx_reports:/opt/airflow/gx_reports
+    command: >
+      bash -c "pip install --no-cache-dir clickhouse-driver pandas python-dotenv psycopg2-binary 'great-expectations==0.18.21' && exec airflow webserver"
+    networks:
+      - pablo_net
+    restart: unless-stopped
+
+  # 5. Планировщик Airflow
+  airflow-scheduler:
+    image: apache/airflow:2.7.3
+    container_name: pablo_airflow_scheduler
+    depends_on:
+      - airflow-init
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${PG_USER}:${PG_PASSWORD}@postgres/${PG_DB_AIRFLOW}
+      AIRFLOW__WEBSERVER__SECRET_KEY: 'pablo_dwh_super_secret_key_123'
+      AIRFLOW__CORE__FERNET_KEY: ''
+      AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'false'
+      AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./data:/opt/airflow/data
+      - ./gx_reports:/opt/airflow/gx_reports
+    command: >
+      bash -c "pip install --no-cache-dir clickhouse-driver pandas python-dotenv psycopg2-binary 'great-expectations==0.18.21' && exec airflow scheduler"
+    networks:
+      - pablo_net
+    restart: unless-stopped
+
+  # 6. Apache Superset - BI-дашборд
+  superset:
+    image: apache/superset:4.0.0
+    container_name: pablo_superset
+    ports:
+      - "8088:8088"
+    environment:
+      - SUPERSET_SECRET_KEY=super_secret_key_for_diploma_project_2026
+    volumes:
+      - superset_data:/app/superset_home
+    networks:
+      - pablo_net
+    command: >
+      bash -c "pip install clickhouse-connect &&
+      superset db upgrade &&
+      superset fab create-admin --username admin --firstname Admin --lastname User --email admin@example.com --password admin || true &&
+      superset init &&
+      superset run -p 8088 --host 0.0.0.0"
+
+volumes:
+  postgres-db-volume:
+  superset_data:
+
+networks:
+  pablo_net:
+    driver: bridge

@@ -1,0 +1,47 @@
+version: 2
+
+models:
+  - name: dim_calendar
+    columns:
+      - name: date_key
+        tests: [unique, not_null]
+
+  - name: dim_store
+    columns:
+      - name: store_key
+        tests: [unique, not_null]
+
+  - name: dim_product
+    columns:
+      - name: product_key
+        tests: [unique, not_null]
+
+  - name: fct_sales_daily
+    description: "Факт ежедневных продаж"
+    columns:
+      - name: date_key
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_calendar')
+                field: date_key
+      - name: store_key
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_store')
+                field: store_key
+      - name: product_key
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_product')
+                field: product_key
+      - name: sum_sales
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: ">= 0"

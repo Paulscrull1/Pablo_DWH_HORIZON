@@ -1,0 +1,58 @@
+version: 2
+
+models:
+  - name: hub_client
+    description: "Хаб клиентов"
+    columns:
+      - name: client_hk
+        tests: [unique, not_null]
+      - name: client_id
+        tests: [unique, not_null]
+
+  - name: hub_product
+    description: "Хаб товаров"
+    columns:
+      - name: product_hk
+        tests: [unique, not_null]
+      - name: product_id
+        tests: [unique, not_null]
+
+  - name: hub_store
+    description: "Хаб магазинов"
+    columns:
+      - name: store_hk
+        tests: [unique, not_null]
+      - name: store_id
+        tests: [unique, not_null]
+
+  - name: hub_transaction
+    description: "Хаб транзакций (чеков)"
+    columns:
+      - name: transaction_hk
+        tests: [unique, not_null]
+      - name: transaction_id
+        tests: [unique, not_null]
+
+  - name: hub_card
+    description: "Хаб карт лояльности"
+    columns:
+      - name: card_hk
+        tests: [unique, not_null]
+      - name: card_id
+        tests: [unique, not_null]
+
+  - name: hub_loyalty_transaction
+    description: "Хаб транзакций лояльности"
+    columns:
+      - name: loyalty_transaction_hk
+        tests: [unique, not_null]
+      - name: loyalty_transaction_id
+        tests: [unique, not_null]
+
+  - name: hub_employee
+    description: "Хаб сотрудников"
+    columns:
+      - name: employee_hk
+        tests: [unique, not_null]
+      - name: employee_id
+        tests: [unique, not_null]

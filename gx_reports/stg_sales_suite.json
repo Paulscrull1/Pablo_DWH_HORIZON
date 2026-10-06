@@ -1,0 +1,37 @@
+{
+  "data_asset_type": "Dataset",
+  "expectation_suite_name": "stg_sales_suite",
+  "expectations": [
+    {
+      "expectation_type": "expect_table_row_count_to_be_between",
+      "kwargs": {"min_value": 100, "max_value": 100000},
+      "meta": {"description": "Ежедневные продажи от 100 до 100000 строк"}
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": {"column": "transaction_id"},
+      "meta": {"description": "transaction_id не может быть NULL"}
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_between",
+      "kwargs": {"column": "amount", "min_value": 0, "max_value": 1000000},
+      "meta": {"description": "Сумма продажи от 0 до 1 000 000"}
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_between",
+      "kwargs": {"column": "quantity", "min_value": 0, "max_value": 1000},
+      "meta": {"description": "Количество товара от 0 до 1000"}
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": {"column": "store_id"},
+      "meta": {"description": "store_id не может быть NULL"}
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_in_set",
+      "kwargs": {"column": "payment_method", "value_set": ["cash", "card", "mobile"]},
+      "meta": {"description": "Способ оплаты из списка: cash, card, mobile"}
+    }
+  ],
+  "meta": {"great_expectations_version": "0.18.21"}
+}

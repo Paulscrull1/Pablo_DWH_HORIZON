@@ -1,0 +1,26 @@
+# 2. Очистка ClickHouse
+docker exec -i pablo_clickhouse clickhouse-client --user=hduser --password=hduser --query="
+TRUNCATE TABLE staging.stg_stores;
+TRUNCATE TABLE staging.stg_products;
+TRUNCATE TABLE staging.stg_clients;
+TRUNCATE TABLE staging.stg_cards;
+TRUNCATE TABLE staging.stg_loyalty_transactions;
+TRUNCATE TABLE staging.stg_employees;
+TRUNCATE TABLE staging.stg_sales;
+"
+
+# 3. Очистка PostgreSQL
+docker exec -i pablo_airflow_postgres psql -U hduser -d loyalty_db -c "
+TRUNCATE TABLE clients, cards, transactions CASCADE;
+"
+
+
+docker exec -i pablo_clickhouse clickhouse-client --user=hduser --password=hduser --query="
+SELECT 'TRUNCATE TABLE dds.' || name || ';' 
+FROM system.tables 
+WHERE database = 'dds'
+ORDER BY name;
+"
+
+
+docker exec -it pablo_airflow_webserver airflow dags trigger --exec-date 2026-10-05T00:00:00+00:00 load_staging_data

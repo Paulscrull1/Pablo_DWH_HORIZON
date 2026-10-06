@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+
+# Данные и базы (НИКОГДА не загружаем в Git!)
+data/
+clickhouse_data/
+postgres_data/
+airflow_db/
